@@ -1,0 +1,96 @@
+/*
+ * Design tokens. Each @theme variable also generates Tailwind utilities
+ * (e.g. --color-ink -> bg-ink / text-ink / border-ink).
+ */
+
+@theme {
+  /* --- Color: monochrome UI, color comes from photography ------------- */
+  --color-*: initial;
+  --color-white: #fff;
+  --color-black: #000;
+
+  --color-canvas: #fff; /* page background */
+  --color-ink: #000; /* text, icons, primary actions */
+  --color-muted: #767676; /* secondary text, disabled labels (AA on white) */
+  --color-surface: #f9f9f9; /* secondary panels and bars */
+  --color-media: #fbfbfb; /* backdrop behind product imagery */
+  --color-line: rgb(0 0 0 / 15%); /* hairline borders and dividers */
+  --color-disabled: rgb(118 118 118 / 20%); /* disabled fills */
+  --color-slate: #44494e; /* translucent controls over imagery, e.g. bg-slate/40 */
+  --color-scrim: rgb(0 0 0 / 40%); /* backdrop behind drawers and modals */
+  --color-focus: #337eff; /* keyboard focus ring, the only UI accent */
+
+  --color-danger: #c00;
+  --color-success: #063;
+  --color-warning: #994d00;
+
+  /* --- Typography ------------------------------------------------------ */
+  /* Sentence-case text styles. Uppercase titles and display sizes are in typography.css. */
+  --text-micro: 0.625rem; /* 10px: badges, labels over imagery */
+  --text-micro--line-height: 0.75rem;
+  --text-micro--font-weight: 500;
+
+  --text-caption: 0.75rem; /* 12px: the UI workhorse (names, prices, links, meta) */
+  --text-caption--line-height: 1rem;
+  --text-caption--letter-spacing: -0.01em;
+  --text-caption--font-weight: 400;
+
+  --text-body: 1rem; /* 16px: running copy */
+  --text-body--line-height: 1.5rem;
+  --text-body--letter-spacing: -0.02em;
+  --text-body--font-weight: 300;
+
+  --text-statement: 2rem; /* 32px: short editorial statements */
+  --text-statement--line-height: 3rem;
+  --text-statement--letter-spacing: -0.03em;
+  --text-statement--font-weight: 300;
+
+  /* --- Layout ---------------------------------------------------------- */
+  --breakpoint-xl: 90rem; /* 1440px: the page container stops growing here */
+
+  --container-page: 82rem; /* 1312px content; 1440px with desktop gutters */
+  --container-narrow: 40rem; /* reading width for text and forms */
+
+  /* Responsive values: overridden per breakpoint in base.css. */
+  --spacing-gutter: 1rem; /* page side padding: 16px -> 32px (md) -> 64px (lg) */
+  --spacing-section: 3rem; /* vertical section rhythm: 48px -> 64px -> 80px */
+  --spacing-header: 4.5rem; /* 72px header; use for offsets (pt-header, scroll-mt-header) */
+
+  --aspect-product: 3 / 4;
+
+  /* --- Shape, depth, motion --------------------------------------------- */
+  /* Corners are square. xs is reserved for small selectable boxes (swatches, option rows). */
+  --radius-*: initial;
+  --radius-xs: 0.125rem;
+
+  --shadow-float: 0 8px 24px 0 rgb(0 0 0 / 10%); /* floating overlays only */
+  --blur-scrim: 15px;
+
+  /* One slow, smooth curve for every transition. */
+  --ease-luxe: cubic-bezier(0.5, 0, 0, 1);
+  --default-transition-duration: 800ms;
+  --default-transition-timing-function: var(--ease-luxe);
+}
+
+@theme inline {
+  /* Font CSS variables are set on <html> by next/font (src/styles/fonts.ts). */
+  --font-sans: var(--typeface-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--typeface-serif), ui-serif, Georgia, serif;
+}
+
+/*
+ * Flips the semantic colors for dark sections and text over photography.
+ * Everything inside (text, borders, buttons, links) adapts automatically.
+ * Add bg-canvas for a solid dark band, or leave it transparent over imagery.
+ */
+@utility inverse {
+  --color-canvas: #000;
+  --color-ink: #fff;
+  --color-muted: rgb(255 255 255 / 60%);
+  --color-surface: #191919;
+  --color-line: rgb(255 255 255 / 50%);
+  --color-danger: #ec716b;
+  --color-success: #60c96d;
+  --color-warning: #ee692d;
+  color: var(--color-ink);
+}

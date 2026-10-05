@@ -1,0 +1,109 @@
+/*
+ * Uppercase titles and display sizes. The larger the title, the lighter its
+ * weight. Titles step up once at lg; display sizes scale with the viewport.
+ *
+ *              < lg     lg+      weight
+ * title-xs     12/16    12/16    700
+ * title-sm     14/20    16/24    700
+ * title-md     20/24    24/32    500
+ * title-lg     24/32    32/40    400
+ * title-xl     32/36    48/48    300
+ * title-2xl    40/40    64/64    300
+ * display-md   56 -> 104 (fluid) 400
+ * display-lg   64 -> 136 (fluid) 400
+ *
+ * Sentence-case sizes (text-micro, text-caption, text-body, text-statement)
+ * are tokens in tokens.css.
+ */
+
+@utility title-xs {
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+}
+
+@utility title-sm {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: uppercase;
+
+  @variant lg {
+    font-size: 1rem;
+    line-height: 1.5rem;
+    letter-spacing: -0.02em;
+  }
+}
+
+@utility title-md {
+  font-size: 1.25rem;
+  line-height: 1.5rem;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+
+  @variant lg {
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+}
+
+@utility title-lg {
+  font-size: 1.5rem;
+  line-height: 2rem;
+  font-weight: 400;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+
+  @variant lg {
+    font-size: 2rem;
+    line-height: 2.5rem;
+  }
+}
+
+@utility title-xl {
+  font-size: 2rem;
+  line-height: 2.25rem;
+  font-weight: 300;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+
+  @variant lg {
+    font-size: 3rem;
+    line-height: 3rem;
+    letter-spacing: -0.04em;
+  }
+}
+
+@utility title-2xl {
+  font-size: 2.5rem;
+  line-height: 2.5rem;
+  font-weight: 300;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+
+  @variant lg {
+    font-size: 4rem;
+    line-height: 4rem;
+  }
+}
+
+/* Hero and campaign headlines: one or two uppercase words, set very tight. */
+@utility display-md {
+  font-size: clamp(3.5rem, 7.2vw, 6.5rem);
+  line-height: 0.9;
+  font-weight: 400;
+  letter-spacing: -0.05em;
+  text-transform: uppercase;
+}
+
+@utility display-lg {
+  font-size: clamp(4rem, 9.4vw, 8.5rem);
+  line-height: 0.9;
+  font-weight: 400;
+  letter-spacing: -0.06em;
+  text-transform: uppercase;
+}

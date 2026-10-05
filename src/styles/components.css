@@ -1,0 +1,185 @@
+/*
+ * Buttons: square, 48px tall, 12px bold uppercase label. On hover a fill rises
+ * slowly from the bottom. Variants only set colors through the semantic
+ * tokens, so inside .inverse a primary button turns white and a secondary
+ * button becomes a white outline (for use over imagery).
+ *
+ *   <button class="btn btn-primary">Add to bag</button>
+ *   <a class="btn btn-secondary" href="...">Discover</a>
+ *   <button class="btn btn-primary btn-icon" aria-label="Close">...</button>
+ */
+@utility btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: --spacing(2);
+  min-height: --spacing(12);
+  padding-block: var(--btn-padding-y, --spacing(4));
+  padding-inline: var(--btn-padding-x, --spacing(6));
+  font-size: var(--text-caption);
+  line-height: var(--text-caption--line-height);
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--btn-fg, currentColor);
+  background-color: var(--btn-bg, transparent);
+  background-image: linear-gradient(var(--btn-fill, transparent), var(--btn-fill, transparent));
+  background-position: bottom;
+  background-repeat: no-repeat;
+  background-size: 100% 0;
+  box-shadow: inset 0 0 0 1px var(--btn-border, transparent);
+  cursor: pointer;
+  transition-property: color, background-color, background-size, box-shadow;
+  transition-duration: var(--default-transition-duration);
+  transition-timing-function: var(--default-transition-timing-function);
+
+  @variant hover {
+    background-size: 100% 100%;
+    color: var(--btn-fg-hover, var(--btn-fg, currentColor));
+  }
+
+  &:focus-visible {
+    outline: 3px solid var(--color-focus);
+    outline-offset: -3px;
+  }
+
+  &:disabled,
+  &[aria-disabled="true"] {
+    --btn-fg: var(--color-muted);
+    --btn-fg-hover: var(--color-muted);
+    --btn-bg: var(--color-disabled);
+    --btn-border: transparent;
+    --btn-fill: transparent;
+    cursor: not-allowed;
+  }
+}
+
+/* Solid ink: the main action on a page (add to bag, checkout). */
+@utility btn-primary {
+  --btn-fg: var(--color-canvas);
+  --btn-bg: var(--color-ink);
+  --btn-fill: color-mix(in srgb, var(--color-ink) 80%, var(--color-canvas));
+}
+
+/* Hairline outline that fills with ink on hover. */
+@utility btn-secondary {
+  --btn-fg: var(--color-ink);
+  --btn-fg-hover: var(--color-canvas);
+  --btn-bg: transparent;
+  --btn-border: var(--color-ink);
+  --btn-fill: var(--color-ink);
+}
+
+/* Circular icon-only button (close, carousel arrows). Combine with a variant. */
+@utility btn-icon {
+  --btn-padding-x: 0;
+  --btn-padding-y: 0;
+  width: --spacing(12);
+  height: --spacing(12);
+  border-radius: calc(infinity * 1px);
+}
+
+/*
+ * Side panel (menu, bag, filters) on a native <dialog> opened with
+ * showModal(). Slides in from the right over the blurred scrim; full width on
+ * mobile, 440px from md. Esc and the dialog's own focus handling come free.
+ */
+@utility drawer {
+  inset: 0 0 0 auto;
+  width: 100%;
+  max-width: none;
+  height: 100dvh;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background-color: var(--color-canvas);
+  color: var(--color-ink);
+  translate: 100% 0;
+  transition-property: translate, overlay, display;
+  transition-behavior: allow-discrete;
+  transition-duration: var(--default-transition-duration);
+  transition-timing-function: var(--default-transition-timing-function);
+
+  @variant md {
+    width: 27.5rem;
+  }
+
+  &[open] {
+    translate: 0 0;
+
+    @starting-style {
+      translate: 100% 0;
+    }
+  }
+
+  &::backdrop {
+    background-color: transparent;
+    transition-property: background-color, backdrop-filter, overlay, display;
+    transition-behavior: allow-discrete;
+    transition-duration: var(--default-transition-duration);
+    transition-timing-function: var(--default-transition-timing-function);
+  }
+
+  &[open]::backdrop {
+    background-color: var(--color-scrim);
+    backdrop-filter: blur(var(--blur-scrim));
+
+    @starting-style {
+      background-color: transparent;
+      backdrop-filter: blur(0);
+    }
+  }
+}
+
+/*
+ * Text links. Size and weight come from the surrounding text.
+ * link: always underlined; the underline retracts and redraws on hover.
+ * link-quiet: for navigation lists; the underline only draws in on hover.
+ */
+@utility link {
+  text-decoration: none;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 100% 1px;
+
+  @variant hover {
+    animation: link-redraw var(--default-transition-duration) var(--default-transition-timing-function);
+  }
+}
+
+@utility link-quiet {
+  text-decoration: none;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 0 1px;
+  transition: background-size var(--default-transition-duration) var(--default-transition-timing-function);
+
+  @variant hover {
+    background-size: 100% 1px;
+  }
+}
+
+@keyframes link-redraw {
+  0% {
+    background-position: 100% 100%;
+    background-size: 100% 1px;
+  }
+  50% {
+    background-position: 100% 100%;
+    background-size: 0 1px;
+  }
+  50.01% {
+    background-position: 0 100%;
+    background-size: 0 1px;
+  }
+  100% {
+    background-position: 0 100%;
+    background-size: 100% 1px;
+  }
+}

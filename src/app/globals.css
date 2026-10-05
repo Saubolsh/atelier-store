@@ -1,0 +1,8 @@
+@import "tailwindcss";
+
+/* Design system (see src/styles/*.css) */
+@import "../styles/tokens.css";
+@import "../styles/base.css";
+@import "../styles/typography.css";
+@import "../styles/layout.css";
+@import "../styles/components.css";

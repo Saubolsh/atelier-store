@@ -1,0 +1,64 @@
+@layer base {
+  :root {
+    @variant md {
+      --spacing-gutter: 2rem;
+      --spacing-section: 4rem;
+    }
+    @variant lg {
+      --spacing-gutter: 4rem;
+      --spacing-section: 5rem;
+    }
+  }
+
+  /* Borders are hairlines unless a color is given (Tailwind defaults to currentColor). */
+  *,
+  ::before,
+  ::after,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-line);
+  }
+
+  html {
+    color-scheme: light;
+    /* Anchor jumps land below the sticky header. */
+    scroll-padding-top: var(--spacing-header);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    background-color: var(--color-canvas);
+    color: var(--color-ink);
+    font-size: var(--text-body);
+    font-weight: var(--text-body--font-weight);
+    line-height: var(--text-body--line-height);
+    letter-spacing: var(--text-body--letter-spacing);
+  }
+
+  ::selection {
+    background-color: var(--color-ink);
+    color: var(--color-canvas);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 2px;
+  }
+
+  /* Keep the page still while a modal dialog (e.g. a drawer) is open. */
+  :root:has(dialog:modal) {
+    overflow: hidden;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    ::before,
+    ::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}

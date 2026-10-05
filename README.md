@@ -41,10 +41,12 @@ src/
     api/auth/[...all]/route.ts   Better Auth handler, mounted at /api/auth/*
     layout.tsx                   Root layout: fonts, announcement bar, header, footer
     page.tsx                     Homepage
+    products/[slug]/page.tsx     Product detail page (pre-rendered per sample product)
     not-found.tsx                404 page
     globals.css                  Tailwind entry; imports the design system
   components/
     home/                        Homepage sections (hero, categories, new arrivals, ...)
+    product/                     Product page parts: gallery, stock status
     site-header.tsx              Sticky header; transparent over the homepage hero
     menu-drawer.tsx              Navigation drawer (native <dialog>)
     site-footer.tsx, product-card.tsx, announcement-bar.tsx, icons.tsx
@@ -55,6 +57,7 @@ src/
     auth.ts                      Better Auth server instance
     auth-client.ts               Better Auth React client
     navigation.ts                Header, menu and footer links
+    format.ts                    Price formatting
     sample-data.ts               Sample products and editorial content (Unsplash photos)
   styles/
     fonts.ts                     Albert Sans (UI) and Bodoni Moda (editorial accent)

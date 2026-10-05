@@ -5,9 +5,9 @@
 Luxury-fashion storefront. Next.js 16 (App Router, Turbopack) · React 19.2 · TS strict · Tailwind 4 (configured in CSS) · Better Auth · Drizzle on Neon (HTTP driver). README.md has setup and the full file tree — don't re-explore the tree for orientation.
 
 ## Status
-- Done: project setup, design system (`src/styles/`), homepage.
-- Not yet: DB tables (`schema.ts` is empty), auth tables/flows, product page, collections, search, bag, checkout. Header/footer links point to routes that don't exist yet — expected.
-- Content is hard-coded in `src/lib/sample-data.ts` and `src/lib/navigation.ts` until the catalog moves to the DB.
+- Done: project setup, design system (`src/styles/`), homepage, product detail page (`/products/[slug]`).
+- Not yet: DB tables (`schema.ts` is empty), auth tables/flows, collections (listing pages), search, bag, checkout. Header/footer links point to routes that don't exist yet — expected.
+- "Add to bag" renders but isn't wired up. Content is hard-coded in `src/lib/sample-data.ts` and `src/lib/navigation.ts` until the catalog moves to the DB.
 
 ## Next.js 16
 The AGENTS.md rule stands, but read only the doc you need: grep `node_modules/next/dist/docs/` for the API, starting with `01-app/02-guides/upgrading/version-16.md`. Already known:

@@ -1,8 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import type { Product } from "@/db/schema";
 import { formatPrice } from "@/lib/format";
-import type { Product } from "@/lib/sample-data";
 
 export function ProductCard({ product }: { product: Product }) {
   const [photo] = product.photos;
@@ -25,7 +25,7 @@ export function ProductCard({ product }: { product: Product }) {
       </div>
       <div className="px-3 pt-4 text-caption">
         <h3>{product.name}</h3>
-        <p className="mt-1 font-medium">{formatPrice(product.price)}</p>
+        <p className="mt-1 font-medium">{formatPrice(product.priceCents)}</p>
       </div>
     </Link>
   );

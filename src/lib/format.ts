@@ -4,6 +4,7 @@ const usd = new Intl.NumberFormat("en-US", {
   maximumFractionDigits: 0,
 });
 
-export function formatPrice(amount: number) {
-  return usd.format(amount);
+/** Prices are stored in integer cents. */
+export function formatPrice(cents: number) {
+  return usd.format(cents / 100);
 }

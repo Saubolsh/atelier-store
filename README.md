@@ -1,6 +1,6 @@
 # Atelier Store
 
-eCommerce app built with Next.js. This is the initial project setup only: no store features, auth flows or database tables yet.
+eCommerce app built with Next.js. The catalog (products, categories, stock) lives in Postgres; auth flows, bag and checkout are not built yet.
 
 ## Stack
 
@@ -27,7 +27,13 @@ eCommerce app built with Next.js. This is the initial project setup only: no sto
    - `BETTER_AUTH_SECRET`: generate with `npx auth secret`
    - `BETTER_AUTH_URL`: `http://localhost:3000` for local development
 
-3. Start the dev server and open [http://localhost:3000](http://localhost:3000):
+3. Create the tables and load the sample catalog:
+
+   ```bash
+   npm run db:migrate && npm run db:seed
+   ```
+
+4. Start the dev server and open [http://localhost:3000](http://localhost:3000):
 
    ```bash
    npm run dev
@@ -41,7 +47,7 @@ src/
     api/auth/[...all]/route.ts   Better Auth handler, mounted at /api/auth/*
     layout.tsx                   Root layout: fonts, announcement bar, header, footer
     page.tsx                     Homepage
-    products/[slug]/page.tsx     Product detail page (pre-rendered per sample product)
+    products/[slug]/page.tsx     Product detail page (pre-rendered per product, refreshed every 60s)
     not-found.tsx                404 page
     globals.css                  Tailwind entry; imports the design system
   components/
@@ -51,14 +57,16 @@ src/
     menu-drawer.tsx              Navigation drawer (native <dialog>)
     site-footer.tsx, product-card.tsx, announcement-bar.tsx, icons.tsx
   db/
-    index.ts                     Drizzle client (Neon HTTP driver)
-    schema.ts                    Drizzle table definitions (empty)
+    index.ts                     Drizzle client (Neon HTTP driver, snake_case columns)
+    schema.ts                    Tables: categories, products (price in cents, stock)
+    seed.ts                      Sample catalog; upserts by slug, safe to re-run
   lib/
     auth.ts                      Better Auth server instance
     auth-client.ts               Better Auth React client
     navigation.ts                Header, menu and footer links
-    format.ts                    Price formatting
-    sample-data.ts               Sample products and editorial content (Unsplash photos)
+    catalog.ts                   Catalog queries; the storefront's only read path to the DB
+    format.ts                    Price formatting (takes cents)
+    sample-data.ts               Editorial homepage content and the unsplash() URL helper
   styles/
     fonts.ts                     Albert Sans (UI) and Bodoni Moda (editorial accent)
     tokens.css                   Design tokens: color, type sizes, layout, shape, motion
@@ -91,6 +99,7 @@ Tailwind v4, configured in CSS (`src/styles`). The main rules:
 | `npm run db:migrate`  | Apply pending migrations to the database           |
 | `npm run db:push`     | Push the schema without migrations (prototyping)   |
 | `npm run db:studio`   | Open Drizzle Studio                                |
+| `npm run db:seed`     | Load the sample catalog (safe to re-run)           |
 
 ## Adding the Better Auth tables
 

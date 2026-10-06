@@ -5,9 +5,9 @@
 Luxury-fashion storefront. Next.js 16 (App Router, Turbopack) · React 19.2 · TS strict · Tailwind 4 (configured in CSS) · Better Auth · Drizzle on Neon (HTTP driver). README.md has setup and the full file tree — don't re-explore the tree for orientation.
 
 ## Status
-- Done: project setup, design system (`src/styles/`), homepage, product detail page (`/products/[slug]`).
-- Not yet: DB tables (`schema.ts` is empty), auth tables/flows, collections (listing pages), search, bag, checkout. Header/footer links point to routes that don't exist yet — expected.
-- "Add to bag" renders but isn't wired up. Content is hard-coded in `src/lib/sample-data.ts` and `src/lib/navigation.ts` until the catalog moves to the DB.
+- Done: project setup, design system (`src/styles/`), homepage, product detail page (`/products/[slug]`), catalog in Postgres (`categories`, `products` with stock; read via `src/lib/catalog.ts`).
+- Not yet: auth tables/flows, product variants, collections (listing pages), search, bag, checkout. Header/footer links point to routes that don't exist yet — expected.
+- "Add to bag" renders but isn't wired up. Editorial content is still hard-coded in `src/lib/sample-data.ts` and `src/lib/navigation.ts`.
 
 ## Next.js 16
 The AGENTS.md rule stands, but read only the doc you need: grep `node_modules/next/dist/docs/` for the API, starting with `01-app/02-guides/upgrading/version-16.md`. Already known:
@@ -36,6 +36,8 @@ The AGENTS.md rule stands, but read only the doc you need: grep `node_modules/ne
 
 ## Data
 - neon-http has no `db.transaction()`; use `db.batch()`.
+- Columns are snake_case via `casing: "snake_case"` (set in both `drizzle.config.ts` and `src/db/index.ts`). Prices are integer cents.
+- `npm run build` needs `DATABASE_URL` and a migrated, seeded DB (`npm run db:seed`).
 - Export every table from `src/db/schema.ts`; migrate with `npm run db:generate && npm run db:migrate`.
 - Never read or print `.env.local`.
 

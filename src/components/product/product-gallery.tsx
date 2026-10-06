@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-import type { Photo } from "@/lib/sample-data";
+import type { Photo } from "@/db/schema";
 
 // Phones swipe through the photos edge to edge; from md they stack into a tall
 // column beside the sticky product information.

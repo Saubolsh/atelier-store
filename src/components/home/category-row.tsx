@@ -1,9 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import { categories } from "@/lib/sample-data";
+import { getCategories } from "@/lib/catalog";
 
-export function CategoryRow() {
+export async function CategoryRow() {
+  const categories = await getCategories();
+
   return (
     <section aria-labelledby="categories-title" className="py-section">
       <h2 id="categories-title" className="title-sm pb-10 text-center">

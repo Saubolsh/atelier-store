@@ -1,9 +1,11 @@
 import Link from "next/link";
 
 import { ProductCard } from "@/components/product-card";
-import { products } from "@/lib/sample-data";
+import { getNewArrivals } from "@/lib/catalog";
 
-export function NewArrivals() {
+export async function NewArrivals() {
+  const products = await getNewArrivals();
+
   return (
     <section aria-labelledby="new-arrivals-title" className="py-section">
       <div className="container-page flex items-baseline justify-between pb-8">

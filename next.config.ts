@@ -2,7 +2,8 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   images: {
-    // Sample photography (src/lib/sample-data.ts). The exact query strings make
+    // Sample photography, built with unsplash() in src/lib/sample-data.ts and
+    // stored as full URLs by the catalog seed (src/db/seed.ts). The exact query strings make
     // Unsplash serve a pre-sized JPEG for Next to resize, instead of the
     // multi-megabyte original, and block any other variants.
     remotePatterns: [1600, 2400].map((width) => ({

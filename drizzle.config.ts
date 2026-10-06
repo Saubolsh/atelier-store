@@ -6,6 +6,8 @@ loadEnvConfig(process.cwd());
 
 export default defineConfig({
   dialect: "postgresql",
+  // Must match `casing` on the client in src/db/index.ts.
+  casing: "snake_case",
   schema: "./src/db/schema.ts",
   out: "./drizzle",
   dbCredentials: {

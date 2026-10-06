@@ -1,4 +1,5 @@
-// Loads the sample catalog. Safe to re-run: rows are upserted by slug.
+// Loads the sample catalog. Insert-only: safe to re-run, existing rows (matched
+// by slug) are never overwritten.
 // Run with `npm run db:seed` after `npm run db:migrate`.
 import { loadEnvConfig } from "@next/env";
 import { sql } from "drizzle-orm";
@@ -232,19 +233,15 @@ async function seed() {
   loadEnvConfig(process.cwd());
   const { db } = await import("@/db");
 
-  const upsertCategories = db
+  // Insert-only: rows whose slug already exists are skipped, never updated, so
+  // re-running the seed can't reset live stock, prices or edits.
+  const insertCategories = db
     .insert(categories)
     .values(categorySeed)
-    .onConflictDoUpdate({
-      target: categories.slug,
-      set: {
-        name: sql`excluded.name`,
-        photo: sql`excluded.photo`,
-        position: sql`excluded.position`,
-      },
-    });
+    .onConflictDoNothing({ target: categories.slug })
+    .returning({ slug: categories.slug });
 
-  const upsertProducts = db
+  const insertProducts = db
     .insert(products)
     .values(
       productSeed.map(({ category, ...product }, index) => ({
@@ -253,25 +250,15 @@ async function seed() {
         createdAt: new Date(newestArrival - index * 60_000),
       })),
     )
-    .onConflictDoUpdate({
-      target: products.slug,
-      set: {
-        name: sql`excluded.name`,
-        categoryId: sql`excluded.category_id`,
-        priceCents: sql`excluded.price_cents`,
-        stock: sql`excluded.stock`,
-        badge: sql`excluded.badge`,
-        description: sql`excluded.description`,
-        details: sql`excluded.details`,
-        photos: sql`excluded.photos`,
-        createdAt: sql`excluded.created_at`,
-        updatedAt: sql`now()`,
-      },
-    });
+    .onConflictDoNothing({ target: products.slug })
+    .returning({ slug: products.slug });
 
   // One batch is one HTTP request and runs atomically.
-  await db.batch([upsertCategories, upsertProducts]);
-  console.log(`Seeded ${categorySeed.length} categories and ${productSeed.length} products.`);
+  const [newCategories, newProducts] = await db.batch([insertCategories, insertProducts]);
+  console.log(
+    `Inserted ${newCategories.length} of ${categorySeed.length} categories and ` +
+      `${newProducts.length} of ${productSeed.length} products; existing rows were left as they are.`,
+  );
 }
 
 seed().catch((error) => {

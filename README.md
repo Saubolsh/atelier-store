@@ -59,7 +59,7 @@ src/
   db/
     index.ts                     Drizzle client (Neon HTTP driver, snake_case columns)
     schema.ts                    Tables: categories, products (price in cents, stock)
-    seed.ts                      Sample catalog; upserts by slug, safe to re-run
+    seed.ts                      Sample catalog; insert-only, never overwrites rows
   lib/
     auth.ts                      Better Auth server instance
     auth-client.ts               Better Auth React client
@@ -99,7 +99,7 @@ Tailwind v4, configured in CSS (`src/styles`). The main rules:
 | `npm run db:migrate`  | Apply pending migrations to the database           |
 | `npm run db:push`     | Push the schema without migrations (prototyping)   |
 | `npm run db:studio`   | Open Drizzle Studio                                |
-| `npm run db:seed`     | Load the sample catalog (safe to re-run)           |
+| `npm run db:seed`     | Insert missing sample catalog rows (never updates) |
 
 ## Adding the Better Auth tables
 

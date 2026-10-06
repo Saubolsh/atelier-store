@@ -98,8 +98,14 @@ Tailwind v4, configured in CSS (`src/styles`). The main rules:
 | `npm run db:generate` | Generate SQL migrations from `src/db/schema.ts`    |
 | `npm run db:migrate`  | Apply pending migrations to the database           |
 | `npm run db:push`     | Push the schema without migrations (prototyping)   |
-| `npm run db:studio`   | Open Drizzle Studio                                |
+| `npm run db:studio`   | Disabled pending a secure Drizzle Studio release    |
 | `npm run db:seed`     | Insert missing sample catalog rows (never updates) |
+
+Drizzle Kit 0.31.11's Studio accepts unauthenticated SQL requests from arbitrary
+browser origins. Both `db:studio` and direct Studio CLI use of `drizzle.config.ts`
+are blocked before loading database credentials. Migration and schema commands
+remain available. Re-enable Studio only after verifying a release that authenticates
+database requests and restricts browser origins; binding to localhost is insufficient.
 
 ## Adding the Better Auth tables
 

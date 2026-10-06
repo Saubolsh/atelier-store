@@ -1,6 +1,14 @@
 import { loadEnvConfig } from "@next/env";
 import { defineConfig } from "drizzle-kit";
 
+// Also block direct CLI use before loading database credentials. Loopback binding
+// alone does not protect Studio from requests made by unrelated websites.
+if (process.argv.includes("studio")) {
+  throw new Error(
+    "Drizzle Studio is disabled: the installed version exposes an unauthenticated database proxy.",
+  );
+}
+
 // drizzle-kit runs outside Next.js, so load .env* files the same way Next does.
 loadEnvConfig(process.cwd());
 

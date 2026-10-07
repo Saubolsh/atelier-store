@@ -107,6 +107,9 @@ are blocked before loading database credentials. Migration and schema commands
 remain available. Re-enable Studio only after verifying a release that authenticates
 database requests and restricts browser origins; binding to localhost is insufficient.
 
+To browse or edit data in the meantime, use the Tables view or SQL Editor in the
+[Neon Console](https://console.neon.tech); both require your Neon login.
+
 ## Adding the Better Auth tables
 
 Better Auth needs its `user`, `session`, `account` and `verification` tables before sign-in can work. They are not in the schema yet. When you're ready:

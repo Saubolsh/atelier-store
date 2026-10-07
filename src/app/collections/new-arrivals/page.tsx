@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
+import { Breadcrumbs } from "@/components/breadcrumbs";
 import { ProductCard } from "@/components/product-card";
 import { getNewArrivals } from "@/lib/catalog";
 
@@ -18,6 +19,9 @@ export default async function NewArrivalsPage() {
 
   return (
     <section aria-labelledby="new-arrivals-title" className="pb-section">
+      <div className="container-page py-4">
+        <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "New arrivals" }]} />
+      </div>
       <header className="container-narrow flex flex-col items-center gap-4 py-section text-center">
         <h1 id="new-arrivals-title" className="title-xl">
           New arrivals

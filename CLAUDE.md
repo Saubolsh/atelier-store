@@ -39,6 +39,10 @@ The AGENTS.md rule stands, but read only the doc you need: grep `node_modules/ne
 - Columns are snake_case via `casing: "snake_case"` (set in both `drizzle.config.ts` and `src/db/index.ts`). Prices are integer cents.
 - `npm run build` needs `DATABASE_URL` and a migrated, seeded DB (`npm run db:seed`).
 - Export every table from `src/db/schema.ts`; migrate with `npm run db:generate && npm run db:migrate`.
+- Storefront code reads the catalog only through `src/lib/catalog.ts`; components never import `db`.
+- `npm run db:seed` is insert-only: it skips existing slugs, so editing `seed.ts` doesn't change rows already in the DB.
+- Photo URLs stored in the DB must match `images.remotePatterns` too; new image hosts need a pattern there.
+- Drizzle Studio is disabled (drizzle-kit 0.31.11 exposes an unauthenticated SQL proxy; see README). Browse/edit data in the Neon Console. Re-check before re-enabling on a drizzle-kit upgrade.
 - Never read or print `.env.local`.
 
 ## Checking work

@@ -5,8 +5,8 @@
 Luxury-fashion storefront. Next.js 16 (App Router, Turbopack) · React 19.2 · TS strict · Tailwind 4 (configured in CSS) · Better Auth · Drizzle on Neon (HTTP driver). README.md has setup and the full file tree — don't re-explore the tree for orientation.
 
 ## Status
-- Done: project setup, design system (`src/styles/`), homepage, product detail page (`/products/[slug]`), New arrivals page (`/collections/new-arrivals`), catalog in Postgres (`categories`, `products` with stock; read via `src/lib/catalog.ts`).
-- Not yet: auth tables/flows, product variants, category collection pages (`/collections/[slug]`), search, bag, checkout. Header/footer links point to routes that don't exist yet — expected.
+- Done: project setup, design system (`src/styles/`), homepage, product detail page (`/products/[slug]`), New arrivals page (`/collections/new-arrivals`), category collection pages (`/collections/[slug]`), catalog in Postgres (`categories`, `products` with stock; read via `src/lib/catalog.ts`).
+- Not yet: auth tables/flows, product variants, search, bag, checkout. Header/footer links point to routes that don't exist yet — expected.
 - "Add to bag" renders but isn't wired up. Editorial content is still hard-coded in `src/lib/sample-data.ts` and `src/lib/navigation.ts`.
 
 ## Next.js 16

@@ -11,6 +11,21 @@ export function getCategories() {
   return db.select().from(categories).orderBy(asc(categories.position));
 }
 
+// cache(): generateMetadata and the page both ask for the same category in one
+// render; this keeps it to a single query.
+export const getCategory = cache(async (slug: string) => {
+  const [category] = await db.select().from(categories).where(eq(categories.slug, slug)).limit(1);
+  return category;
+});
+
+export function getCategoryProducts(categoryId: string) {
+  return db
+    .select()
+    .from(products)
+    .where(eq(products.categoryId, categoryId))
+    .orderBy(desc(products.createdAt));
+}
+
 export function getNewArrivals(limit = 8) {
   return db.select().from(products).orderBy(desc(products.createdAt)).limit(limit);
 }

@@ -7,6 +7,13 @@
     @variant lg {
       --spacing-gutter: 4rem;
       --spacing-section: 5rem;
+      /* Laptop and desktop screens sit farther away; small text steps up a size. */
+      --text-micro: 0.8125rem;
+      --text-micro--line-height: 1rem;
+      --text-caption: 0.9375rem;
+      --text-caption--line-height: 1.375rem;
+      --text-body: 1.125rem;
+      --text-body--line-height: 1.75rem;
     }
   }
 

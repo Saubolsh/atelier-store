@@ -3,7 +3,7 @@
  * weight. Titles step up once at lg; display sizes scale with the viewport.
  *
  *              < lg     lg+      weight
- * title-xs     12/16    12/16    700
+ * title-xs     12/16    15/22    700
  * title-sm     14/20    16/24    700
  * title-md     20/24    24/32    500
  * title-lg     24/32    32/40    400
@@ -22,6 +22,11 @@
   font-weight: 700;
   letter-spacing: -0.01em;
   text-transform: uppercase;
+
+  @variant lg {
+    font-size: 0.9375rem;
+    line-height: 1.375rem;
+  }
 }
 
 @utility title-sm {

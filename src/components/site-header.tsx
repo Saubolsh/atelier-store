@@ -7,6 +7,7 @@ import { useRef, useSyncExternalStore } from "react";
 import { AccountIcon, BagIcon, MenuIcon, SearchIcon } from "@/components/icons";
 import { MenuDrawer } from "@/components/menu-drawer";
 import { primaryNav } from "@/lib/navigation";
+import { useBagCount } from "@/lib/use-bag-count";
 
 // Pages that open with a full-bleed image. The header sits on top of it,
 // transparent and inverted, until the page scrolls.
@@ -26,6 +27,7 @@ export function SiteHeader() {
     () => window.scrollY > 8,
     () => false,
   );
+  const bagCount = useBagCount();
   const menu = useRef<HTMLDialogElement>(null);
   const overlay = overlayPaths.has(pathname) && !scrolled;
 
@@ -57,8 +59,20 @@ export function SiteHeader() {
             <Link href="/account" aria-label="Account" className={`${iconLink} max-sm:hidden`}>
               <AccountIcon />
             </Link>
-            <Link href="/bag" aria-label="Shopping bag" className={iconLink}>
+            <Link
+              href="/bag"
+              aria-label={bagCount > 0 ? `Shopping bag, ${bagCount} ${bagCount === 1 ? "item" : "items"}` : "Shopping bag"}
+              className={`${iconLink} relative`}
+            >
               <BagIcon />
+              {bagCount > 0 && (
+                <span
+                  aria-hidden
+                  className="absolute top-1.5 right-0.5 grid h-4.5 min-w-4.5 place-items-center rounded-full bg-ink px-1 text-micro leading-none font-medium text-canvas"
+                >
+                  {bagCount > 9 ? "9+" : bagCount}
+                </span>
+              )}
             </Link>
             <button
               type="button"

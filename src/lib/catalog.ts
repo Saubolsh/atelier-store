@@ -1,4 +1,4 @@
-import { asc, desc, eq, getTableColumns } from "drizzle-orm";
+import { asc, desc, eq, getTableColumns, inArray } from "drizzle-orm";
 import { cache } from "react";
 
 import { db } from "@/db";
@@ -28,6 +28,11 @@ export function getCategoryProducts(categoryId: string) {
 
 export function getNewArrivals(limit = 8) {
   return db.select().from(products).orderBy(desc(products.createdAt)).limit(limit);
+}
+
+export async function getProductsByIds(ids: string[]) {
+  if (ids.length === 0) return [];
+  return db.select().from(products).where(inArray(products.id, ids));
 }
 
 export async function getProductSlugs() {

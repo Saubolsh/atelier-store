@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { Breadcrumbs } from "@/components/breadcrumbs";
+import { AddToBag } from "@/components/product/add-to-bag";
 import { ProductGallery } from "@/components/product/product-gallery";
 import { StockStatus } from "@/components/product/stock-status";
 import { getProduct, getProductSlugs } from "@/lib/catalog";
@@ -55,10 +56,7 @@ export default async function ProductPage({ params }: PageProps<"/products/[slug
 
             <div className="mt-8 flex flex-col gap-4">
               <StockStatus stock={product.stock} />
-              {/* Not wired up yet: the bag comes in a later step. */}
-              <button type="button" disabled={product.stock === 0} className="btn btn-primary w-full">
-                Add to bag
-              </button>
+              <AddToBag productId={product.id} soldOut={product.stock === 0} />
             </div>
 
             <p className="mt-10 text-body">{product.description}</p>

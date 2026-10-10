@@ -5,9 +5,9 @@
 Luxury-fashion storefront. Next.js 16 (App Router, Turbopack) · React 19.2 · TS strict · Tailwind 4 (configured in CSS) · Better Auth · Drizzle on Neon (HTTP driver). README.md has setup and the full file tree — don't re-explore the tree for orientation.
 
 ## Status
-- Done: project setup, design system (`src/styles/`), homepage, product detail page (`/products/[slug]`), New arrivals page (`/collections/new-arrivals`), category collection pages (`/collections/[slug]`), breadcrumbs (`src/components/breadcrumbs.tsx`), desktop text sizes, catalog in Postgres (`categories`, `products` with stock; read via `src/lib/catalog.ts`).
-- Not yet: auth (`src/lib/auth.ts` and `/api/auth/[...all]` exist, but the schema has no auth tables yet, so any auth call fails at runtime), product variants, search, bag, checkout. Header/footer links point to routes that don't exist yet — expected.
-- "Add to bag" renders but isn't wired up. Editorial content is still hard-coded in `src/lib/sample-data.ts` and `src/lib/navigation.ts`.
+- Done: project setup, design system (`src/styles/`), homepage, product detail page (`/products/[slug]`), New arrivals page (`/collections/new-arrivals`), category collection pages (`/collections/[slug]`), breadcrumbs (`src/components/breadcrumbs.tsx`), desktop text sizes, shopping bag (cookie-based for guests: `src/lib/bag.ts`, actions in `src/app/bag/`, add-to-bag drawer, `/bag` page, header count), catalog in Postgres (`categories`, `products` with stock; read via `src/lib/catalog.ts`).
+- Not yet: auth (`src/lib/auth.ts` and `/api/auth/[...all]` exist, but the schema has no auth tables yet, so any auth call fails at runtime), product variants, search, checkout (the bag's Checkout button links to the missing `/checkout`). Header/footer links point to routes that don't exist yet — expected.
+- Editorial content is still hard-coded in `src/lib/sample-data.ts` and `src/lib/navigation.ts`.
 
 ## Next.js 16
 The AGENTS.md rule stands, but read only the doc you need: grep `node_modules/next/dist/docs/` for the API, starting with `01-app/02-guides/upgrading/version-16.md`. Already known:

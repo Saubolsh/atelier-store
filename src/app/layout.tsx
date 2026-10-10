@@ -9,6 +9,9 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Atelier Store",
   description: "Leather goods and ready-to-wear, cut and finished by hand.",
+  // The deployed site is unfinished (dead links, sample content): keep it out of
+  // search results. Remove at launch.
+  robots: { index: false, follow: false },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
